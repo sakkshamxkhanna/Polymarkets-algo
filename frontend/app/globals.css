@@ -1,0 +1,189 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── Keyframes ─────────────────────────────────────────────────── */
+@keyframes fadeIn  { 0% { opacity: 0 } 100% { opacity: 1 } }
+@keyframes slideUp { 0% { transform: translateY(4px); opacity: 0 } 100% { transform: translateY(0); opacity: 1 } }
+@keyframes flashUp { 0% { background-color: rgba(0, 212, 136, 0.28) } 100% { background-color: transparent } }
+@keyframes flashDn { 0% { background-color: rgba(255, 59, 92, 0.28) } 100% { background-color: transparent } }
+@keyframes blink   { 0%, 50%, 100% { opacity: 1 } 25%, 75% { opacity: 0.35 } }
+@keyframes pulseDot { 0%, 100% { opacity: 1 } 50% { opacity: 0.4 } }
+
+/* ── Base reset ────────────────────────────────────────────────── */
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--color-bg-primary);
+  color: var(--color-text-primary);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  height: 100%;
+  overflow: hidden;
+  font-variant-ligatures: none;
+}
+
+/* Tabular numerals — critical for trading UIs */
+.font-mono, .tnum, table, td, th {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Scrollbars */
+::-webkit-scrollbar       { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--color-border-primary); border-radius: 0; }
+::-webkit-scrollbar-thumb:hover { background: var(--color-border-strong); }
+::-webkit-scrollbar-corner      { background: transparent; }
+
+::selection {
+  background: rgba(0, 217, 255, 0.22);
+  color: var(--color-accent-cyan);
+}
+
+*:focus-visible {
+  outline: 1px solid var(--color-accent-cyan);
+  outline-offset: 1px;
+}
+
+/* ── Pulse dots — opacity-only (GPU-composited, cheap) ─────────── */
+.dot-pulse-cyan,
+.dot-pulse-green,
+.dot-pulse-red,
+.dot-pulse-amber {
+  animation: pulseDot 2s ease-in-out infinite;
+  will-change: opacity;
+}
+
+/* ── Flash row backgrounds (used on data updates) ──────────────── */
+.flash-up { animation: flashUp 0.6s ease-out; }
+.flash-dn { animation: flashDn 0.6s ease-out; }
+
+/* ── Depth ladder gradient bars ────────────────────────────────── */
+.depth-bid { background: linear-gradient(to left,  rgba(0, 212, 136, 0.18), transparent); }
+.depth-ask { background: linear-gradient(to right, rgba(255, 59, 92, 0.18), transparent); }
+
+/* ── Terminal panel ────────────────────────────────────────────── */
+.term-panel {
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border-primary);
+  border-radius: 2px;
+  box-shadow: 0 1px 0 rgba(255,255,255,0.02) inset;
+}
+
+.term-panel-elevated {
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border-strong);
+  border-radius: 2px;
+  box-shadow: 0 1px 0 rgba(255,255,255,0.03) inset, 0 8px 24px -12px rgba(0, 0, 0, 0.6);
+}
+
+.term-panel-header {
+  display: flex;
+  align-items: center;
+  height: 28px;
+  padding: 0 10px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.018), transparent);
+  border-bottom: 1px solid var(--color-border-primary);
+  gap: 8px;
+}
+
+.term-label {
+  font-family: var(--font-display);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+.hairline        { background-color: var(--color-border-primary); }
+.hairline-strong { background-color: var(--color-border-strong); }
+
+.num { font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
+
+/* ── Function-key cap (footer) ─────────────────────────────────── */
+.fkey {
+  display: inline-flex;
+  align-items: center;
+  height: 16px;
+  padding: 0 4px;
+  border: 1px solid var(--color-border-strong);
+  border-radius: 2px;
+  background: var(--color-bg-tertiary);
+  font-family: var(--font-mono);
+  font-size: 9px;
+  font-weight: 600;
+  color: var(--color-accent-cyan);
+  letter-spacing: 0.05em;
+}
+
+/* ── Cyan vertical text gradient ───────────────────────────────── */
+.text-gradient-cyan {
+  background: linear-gradient(180deg, #00d9ff 0%, #0099b8 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* ── Live data row hover ───────────────────────────────────────── */
+.data-row {
+  transition: background-color 80ms linear, border-color 80ms linear;
+}
+.data-row:hover {
+  background-color: var(--color-bg-elevated);
+}
+
+/* ── Terminal input ────────────────────────────────────────────── */
+.term-input {
+  background: var(--color-bg-tertiary);
+  border: 1px solid var(--color-border-primary);
+  border-radius: 2px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--color-text-primary);
+  padding: 6px 10px;
+  transition: border-color 100ms;
+}
+.term-input::placeholder { color: var(--color-text-dim); }
+.term-input:focus {
+  outline: none;
+  border-color: var(--color-accent-cyan);
+  box-shadow: 0 0 0 2px rgba(0, 217, 255, 0.08);
+}
+
+/* ── Terminal button ───────────────────────────────────────────── */
+.term-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 24px;
+  padding: 0 10px;
+  border: 1px solid var(--color-border-primary);
+  border-radius: 2px;
+  background: var(--color-bg-tertiary);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 500;
+  color: var(--color-text-muted);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: border-color 100ms, color 100ms, background-color 100ms;
+}
+.term-btn:hover {
+  border-color: var(--color-border-strong);
+  color: var(--color-text-primary);
+  background: var(--color-bg-elevated);
+}
+.term-btn-active {
+  border-color: rgba(0, 217, 255, 0.5);
+  color: var(--color-accent-cyan);
+  background: rgba(0, 217, 255, 0.06);
+}
+.term-btn-active:hover {
+  border-color: var(--color-accent-cyan);
+  color: var(--color-accent-cyan);
+}
