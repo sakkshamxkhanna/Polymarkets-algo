@@ -1,0 +1,19 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "backend",
+      "runtimeExecutable": "/Users/sakshamkhanna/Polymarkets/backend/venv/bin/python3",
+      "runtimeArgs": ["main.py"],
+      "cwd": "/Users/sakshamkhanna/Polymarkets/backend",
+      "port": 8000
+    },
+    {
+      "name": "frontend",
+      "runtimeExecutable": "/Users/sakshamkhanna/Polymarkets/frontend/dev-wrapper.sh",
+      "runtimeArgs": [],
+      "cwd": "/Users/sakshamkhanna/Polymarkets/frontend",
+      "port": 3000
+    }
+  ]
+}
